@@ -1,0 +1,82 @@
+baseURL = "https://dvoros.com" 
+copyright = "Daniel Voros" 
+disqusShortname = "dvoros.com" # Used when comments is enabled. Cactus will use site title if not set
+languageCode = "en-us" 
+theme = "cactus" 
+title = "dvoros.com" 
+
+# summaryLength = 2
+
+# Main menu which appears below site header.
+[[menu.main]]
+name = "Home"
+url = "/"
+weight = 1
+
+[[menu.main]]
+name = "Writings"
+url = "/posts"
+weight = 2
+
+[[menu.main]]
+name = "Tags"
+url = "/tags"
+weight = 3
+
+[[menu.main]]
+name = "About"
+url = "/about"
+weight = 4
+
+[markup]
+[markup.tableOfContents]
+endLevel = 4
+ordered = false
+startLevel = 2
+[markup.highlight]
+codeFences = true
+guessSyntax = false
+hl_Lines = ""
+lineNoStart = 1
+lineNos = true
+lineNumbersInTable = false
+noClasses = true
+style = "dracula"
+tabWidth = 4
+
+[params]
+
+colortheme = "white" # dark, light, white, or classic
+rss = true # generate rss feed. default value is false
+
+# Home page settings
+description = "My name is Daniel. Here's where I write about stuff I'm tinkering with." 
+mainSection = "posts" # your main section
+postsOnHomePage = 5 # this option will be ignored if showAllPostsOnHomePage is set to true
+projectsUrl = "https://github.com/dvoros" # title link for projects list
+showAllPostsOnHomePage = false # default
+showProjectsList = true # show projects list by default (if projects data file exists).
+tagsOverview = false # show tags overview by default.
+
+# https://gohugo.io/functions/format/#hugo-date-and-time-templating-reference
+dateFormat = "2006-01-02" # default
+
+# Post page settings
+showReadTime = true # default
+show_updated = true # default
+
+[params.comments]
+enabled = false # default
+engine = "disqus" # more supported engines will be added.
+
+# the value of name should be an valid font awesome icon name (brands type)
+# https://fontawesome.com/icons?d=gallery&s=brands
+[[params.social]]
+link = "https://github.com/dvoros"
+name = "github"
+[[params.social]]
+link = "https://www.linkedin.com/in/dvoros/"
+name = "linkedin"
+[[params.social]]
+link = "dvoros@dvoros.com" # no need for "mailto:" in the head
+name = "email"
