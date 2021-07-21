@@ -10,4 +10,10 @@ $logo-width: 50px;
 $logo-height: 50px;
 $logo-grayout: true;
 // Colors
-$colors: "dark" // white dark light classic
+$colors: "dark"; // white dark light classic
+
+$hint-colors: (
+  info: #6bf,
+  warning: #fd6,
+  danger: #f66,
+) !default;

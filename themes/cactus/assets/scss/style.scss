@@ -4,6 +4,7 @@
 @import "mixins";
 @import "extend";
 @import "fonts";
+@import "shortcodes";
 
 // global-reset()
 
@@ -227,5 +228,25 @@ code {
         padding-left: 0;
       }
     }
+  }
+}
+
+$padding-1: 1px !default;
+$padding-4: 0.25rem !default;
+$padding-8: 0.5rem !default;
+$padding-16: 1rem !default;
+$border-radius: $padding-4 !default;
+blockquote {
+  margin: $padding-16 0;
+  padding: $padding-8 $padding-16 $padding-8 ($padding-16 - $padding-4); //to keep total left space 16dp
+
+  border-inline-start: $padding-4 solid rgba(255, 255, 255, 0.2);
+  border-radius: $border-radius;
+
+  :first-child {
+    margin-top: 0;
+  }
+  :last-child {
+    margin-bottom: 0;
   }
 }
