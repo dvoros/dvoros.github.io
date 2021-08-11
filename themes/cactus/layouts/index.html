@@ -25,11 +25,11 @@
         </a>
         {{ end }}
         {{ if (lt (add $index 2) $length) }}
-          {{- print " , " -}}
+          ,
         {{ else if (lt (add $index 1) $length) }}
-          {{- print " and " -}}
+          &nbsp;and
         {{ else }}
-          {{- print "." -}}
+          .
         {{ end }}
       {{ end }}
       </p>
