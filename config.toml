@@ -1,9 +1,8 @@
-baseURL = "https://dvoros.com" 
-copyright = "Daniel Voros" 
-disqusShortname = "dvoros.com" # Used when comments is enabled. Cactus will use site title if not set
-languageCode = "en-us" 
-theme = "cactus" 
-title = "dvoros.com" 
+baseURL = "https://dvoros.com"
+copyright = "Daniel Voros"
+languageCode = "en-us"
+theme = "cactus"
+title = "dvoros.com"
 
 # summaryLength = 2
 
@@ -66,8 +65,8 @@ showReadTime = true # default
 show_updated = true # default
 
 [params.comments]
-enabled = false # default
-engine = "disqus" # more supported engines will be added.
+enabled = true
+engine = "isso"
 
 # the value of name should be an valid font awesome icon name (brands type)
 # https://fontawesome.com/icons?d=gallery&s=brands

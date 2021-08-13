@@ -31,6 +31,16 @@
           <a href="https://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
         </div>
     </div>
+  {{ end }}
+  {{ if (eq .Site.Params.Comments.Engine "isso") }}
+    <div class="blog-post-comments">
+      <script data-isso="//comments.dvoros.com/"
+        data-isso-reply-to-self="false"
+        data-isso-require-author="true"
+        data-isso-require-email="true"
+        src="//comments.dvoros.com/js/embed.min.js"></script>
 
+        <section id="isso-thread"></section>
+    </div>
   {{ end }}
 {{ end }}
