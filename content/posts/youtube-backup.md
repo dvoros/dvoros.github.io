@@ -53,7 +53,7 @@ youtube-dl \
 **Downloading everything over and over?**  
 Will this download every video over and over again every day? Fortunately not!
 Youtube-dl will skip videos if the output file already exists. So do I need to
-keep every video in local storage? Keep on reading to find out. (:
+keep every video in local storage? Keep on reading to find out. 🙂
 {{< /hint >}}
 
 ## Uploading videos
