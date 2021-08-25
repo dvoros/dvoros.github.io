@@ -49,7 +49,7 @@ colortheme = "white" # dark, light, white, or classic
 rss = true # generate rss feed. default value is false
 
 # Home page settings
-description = "My name is Daniel. Here's where I write about stuff I'm tinkering with." 
+description = "Hey there, this is Daniel. This page is where I write about stuff I'm tinkering with." 
 mainSection = "posts" # your main section
 postsOnHomePage = 5 # this option will be ignored if showAllPostsOnHomePage is set to true
 projectsUrl = "https://github.com/dvoros" # title link for projects list
