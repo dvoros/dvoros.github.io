@@ -193,6 +193,7 @@ pre {
 
 code {
   font-family: $font-family-mono;
+  font-variant-ligatures: none;
   padding: 0 5px;
   border: 1px dotted $color-border;
   border-radius: 2px;
