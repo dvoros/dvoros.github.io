@@ -4,6 +4,11 @@
             "name": "3dasd",
             "url": "https://3dasd.com/",
             "desc": "Open-source DIY room-scale 3D scanner."
+        },
+        {
+            "name": "Colored Skyscrapers",
+            "url": "https://skyscrapers.dvoros.com/",
+            "desc": "DIY logic puzzle game"
         }
     ]
 }
