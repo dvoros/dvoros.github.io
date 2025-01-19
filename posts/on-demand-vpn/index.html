@@ -1,291 +1,103 @@
-<!doctype html><html lang=en-us>
-<head>
-<link rel=preload href=/lib/font-awesome/webfonts/fa-brands-400.woff2 as=font type=font/woff2 crossorigin=anonymous>
-<link rel=preload href=/lib/font-awesome/webfonts/fa-regular-400.woff2 as=font type=font/woff2 crossorigin=anonymous>
-<link rel=preload href=/lib/font-awesome/webfonts/fa-solid-900.woff2 as=font type=font/woff2 crossorigin=anonymous>
-<link rel=preload href=/lib/JetBrainsMono/web/woff2/JetBrainsMono-Regular.woff2 as=font type=font/woff2 crossorigin=anonymous>
-<meta charset=utf-8>
-<meta http-equiv=x-ua-compatible content="IE=edge">
-<title> On-demand VPN | dvoros.com</title>
-<link rel=canonical href=https://dvoros.com/posts/on-demand-vpn/>
-<meta name=description content="Hey there, this is Daniel. This page is where I write about stuff I'm tinkering with to fool people into believing I'm competent. You can find links to my bigger projects and shorter writings below.">
-<meta name=viewport content="width=device-width,initial-scale=1">
-<meta name=robots content="all,follow">
-<meta name=googlebot content="index,follow,snippet,archive">
-<meta property="og:title" content="On-demand VPN">
-<meta property="og:description" content="For about a month now I&rsquo;ve been travelling abroad and been surviving on dodgy public Wi-Fis and networks operated by my Airbnb hosts. Under such circumstances I prefer tunneling all my traffic through VPN to avoid eavesdropping.
-For a long time I&rsquo;ve had an always-on beefy VPS with OpenVPN running so this wasn&rsquo;t an issue. However, a while back I&rsquo;ve decided to save some money by scaling it down to a very small instance and running bigger workloads (VPN included) on ephemeral instances.">
-<meta property="og:type" content="article">
-<meta property="og:url" content="https://dvoros.com/posts/on-demand-vpn/"><meta property="article:section" content="posts">
-<meta property="article:published_time" content="2021-09-23T16:51:25+02:00">
-<meta property="article:modified_time" content="2021-09-23T16:51:25+02:00">
-<meta name=twitter:card content="summary">
-<meta name=twitter:title content="On-demand VPN">
-<meta name=twitter:description content="For about a month now I&rsquo;ve been travelling abroad and been surviving on dodgy public Wi-Fis and networks operated by my Airbnb hosts. Under such circumstances I prefer tunneling all my traffic through VPN to avoid eavesdropping.
-For a long time I&rsquo;ve had an always-on beefy VPS with OpenVPN running so this wasn&rsquo;t an issue. However, a while back I&rsquo;ve decided to save some money by scaling it down to a very small instance and running bigger workloads (VPN included) on ephemeral instances.">
-<link rel=stylesheet href=https://dvoros.com/css/styles.2040c53b965e845900765cc910575a7f6bc0605c43a1c67005de73900d059ab65e67e98810f1e577b1cee386782bd42a32d71e9ec5c0594a2783c67210d25698.css integrity="sha512-IEDFO5ZehFkAdlzJEFdaf2vAYFxDocZwBd5zkA0FmrZeZ+mIEPHld7HO44Z4K9QqMtcensXAWUong8ZyENJWmA=="><!--[if lt IE 9]><script src=https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js></script>
-<script src=https://oss.maxcdn.com/respond/1.4.2/respond.min.js></script><![endif]-->
-<link rel=icon type=image/png href=https://dvoros.com/images/favicon.ico>
-</head>
-<body class="max-width mx-auto px3 ltr">
-<div class="content index py4">
-<div id=header-post>
-<a id=menu-icon href=#><i class="fas fa-bars fa-lg"></i></a>
+<!doctype html><html lang=en-us><head><link rel=preload href=/lib/font-awesome/webfonts/fa-brands-400.woff2 as=font type=font/woff2 crossorigin=anonymous><link rel=preload href=/lib/font-awesome/webfonts/fa-regular-400.woff2 as=font type=font/woff2 crossorigin=anonymous><link rel=preload href=/lib/font-awesome/webfonts/fa-solid-900.woff2 as=font type=font/woff2 crossorigin=anonymous><link rel=preload href=/lib/JetBrainsMono/web/woff2/JetBrainsMono-Regular.woff2 as=font type=font/woff2 crossorigin=anonymous><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><title>On-demand VPN | dvoros.com</title>
+<link rel=canonical href=https://dvoros.com/posts/on-demand-vpn/><meta name=description content="Hey there, this is Daniel. This page is where I write about stuff I'm tinkering with to fool people into believing I'm competent. You can find links to my bigger projects and shorter writings below."><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="all,follow"><meta name=googlebot content="index,follow,snippet,archive"><meta property="og:url" content="https://dvoros.com/posts/on-demand-vpn/"><meta property="og:site_name" content="dvoros.com"><meta property="og:title" content="On-demand VPN"><meta property="og:description" content="For about a month now I’ve been travelling abroad and been surviving on dodgy public Wi-Fis and networks operated by my Airbnb hosts. Under such circumstances I prefer tunneling all my traffic through VPN to avoid eavesdropping.
+For a long time I’ve had an always-on beefy VPS with OpenVPN running so this wasn’t an issue. However, a while back I’ve decided to save some money by scaling it down to a very small instance and running bigger workloads (VPN included) on ephemeral instances."><meta property="og:locale" content="en_us"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2021-09-23T16:51:25+02:00"><meta property="article:modified_time" content="2021-09-23T16:51:25+02:00"><meta property="article:tag" content="Vpn"><meta property="article:tag" content="Discord"><meta property="article:tag" content="Openvpn"><meta name=twitter:card content="summary"><meta name=twitter:title content="On-demand VPN"><meta name=twitter:description content="For about a month now I’ve been travelling abroad and been surviving on dodgy public Wi-Fis and networks operated by my Airbnb hosts. Under such circumstances I prefer tunneling all my traffic through VPN to avoid eavesdropping.
+For a long time I’ve had an always-on beefy VPS with OpenVPN running so this wasn’t an issue. However, a while back I’ve decided to save some money by scaling it down to a very small instance and running bigger workloads (VPN included) on ephemeral instances."><link rel=stylesheet href=https://dvoros.com/css/styles.2040c53b965e845900765cc910575a7f6bc0605c43a1c67005de73900d059ab65e67e98810f1e577b1cee386782bd42a32d71e9ec5c0594a2783c67210d25698.css integrity="sha512-IEDFO5ZehFkAdlzJEFdaf2vAYFxDocZwBd5zkA0FmrZeZ+mIEPHld7HO44Z4K9QqMtcensXAWUong8ZyENJWmA=="><!--[if lt IE 9]><script src=https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js></script><script src=https://oss.maxcdn.com/respond/1.4.2/respond.min.js></script><![endif]--><link rel=icon type=image/png href=https://dvoros.com/images/favicon.ico></head><body class="max-width mx-auto px3 ltr"><div class="content index py4"><div id=header-post><a id=menu-icon href=#><i class="fas fa-bars fa-lg"></i></a>
 <a id=menu-icon-tablet href=#><i class="fas fa-bars fa-lg"></i></a>
-<a id=top-icon-tablet href=# onclick="$('html, body').animate({scrollTop:0},'fast')" style=display:none aria-label="Top of Page"><i class="fas fa-chevron-up fa-lg"></i></a>
-<span id=menu>
-<span id=nav>
-<ul>
-<li><a href=/>Home</a></li>
-<li><a href=/posts>Writings</a></li>
-<li><a href=/tags>Tags</a></li>
-<li><a href=/about>About</a></li>
-</ul>
-</span>
-<br>
-<span id=actions>
-<ul>
-<li>
-<a class=icon href=https://dvoros.com/posts/commenting-metapost/ aria-label=Previous>
-<i class="fas fa-chevron-left" aria-hidden=true onmouseover="$('#i-prev').toggle()" onmouseout="$('#i-prev').toggle()"></i>
-</a>
-</li>
-<li>
-<a class=icon href=# onclick="$('html, body').animate({scrollTop:0},'fast')" aria-label="Top of Page">
-<i class="fas fa-chevron-up" aria-hidden=true onmouseover="$('#i-top').toggle()" onmouseout="$('#i-top').toggle()"></i>
-</a>
-</li>
-<li>
-<a class=icon href=# aria-label=Share>
-<i class="fas fa-share-alt" aria-hidden=true onmouseover="$('#i-share').toggle()" onmouseout="$('#i-share').toggle()" onclick="return $('#share').toggle(),!1"></i>
-</a>
-</li>
-</ul>
-<span id=i-prev class=info style=display:none>Previous post</span>
+<a id=top-icon-tablet href=# onclick='$("html, body").animate({scrollTop:0},"fast")' style=display:none aria-label="Top of Page"><i class="fas fa-chevron-up fa-lg"></i></a>
+<span id=menu><span id=nav><ul><li><a href=/>Home</a></li><li><a href=/posts>Writings</a></li><li><a href=/tags>Tags</a></li><li><a href=/about>About</a></li></ul></span><br><span id=actions><ul><li><a class=icon href=https://dvoros.com/posts/commenting-metapost/ aria-label=Previous><i class="fas fa-chevron-left" aria-hidden=true onmouseover='$("#i-prev").toggle()' onmouseout='$("#i-prev").toggle()'></i></a></li><li><a class=icon href=# onclick='$("html, body").animate({scrollTop:0},"fast")' aria-label="Top of Page"><i class="fas fa-chevron-up" aria-hidden=true onmouseover='$("#i-top").toggle()' onmouseout='$("#i-top").toggle()'></i></a></li><li><a class=icon href=# aria-label=Share><i class="fas fa-share-alt" aria-hidden=true onmouseover='$("#i-share").toggle()' onmouseout='$("#i-share").toggle()' onclick='return $("#share").toggle(),!1'></i></a></li></ul><span id=i-prev class=info style=display:none>Previous post</span>
 <span id=i-next class=info style=display:none>Next post</span>
 <span id=i-top class=info style=display:none>Back to top</span>
-<span id=i-share class=info style=display:none>Share post</span>
-</span>
-<br>
-<div id=share style=display:none>
-<ul>
-<li>
-<a class=icon href="http://www.facebook.com/sharer.php?u=https%3a%2f%2fdvoros.com%2fposts%2fon-demand-vpn%2f" aria-label=Facebook>
-<i class="fab fa-facebook" aria-hidden=true></i>
-</a>
-</li>
-<li>
-<a class=icon href="https://twitter.com/share?url=https%3a%2f%2fdvoros.com%2fposts%2fon-demand-vpn%2f&text=On-demand%20VPN" aria-label=Twitter>
-<i class="fab fa-twitter" aria-hidden=true></i>
-</a>
-</li>
-<li>
-<a class=icon href="http://www.linkedin.com/shareArticle?url=https%3a%2f%2fdvoros.com%2fposts%2fon-demand-vpn%2f&title=On-demand%20VPN" aria-label=Linkedin>
-<i class="fab fa-linkedin" aria-hidden=true></i>
-</a>
-</li>
-<li>
-<a class=icon href="https://pinterest.com/pin/create/bookmarklet/?url=https%3a%2f%2fdvoros.com%2fposts%2fon-demand-vpn%2f&is_video=false&description=On-demand%20VPN" aria-label=Pinterest>
-<i class="fab fa-pinterest" aria-hidden=true></i>
-</a>
-</li>
-<li>
-<a class=icon href="mailto:?subject=On-demand%20VPN&body=Check out this article: https%3a%2f%2fdvoros.com%2fposts%2fon-demand-vpn%2f" aria-label=Email>
-<i class="fas fa-envelope" aria-hidden=true></i>
-</a>
-</li>
-<li>
-<a class=icon href="https://getpocket.com/save?url=https%3a%2f%2fdvoros.com%2fposts%2fon-demand-vpn%2f&title=On-demand%20VPN" aria-label=Pocket>
-<i class="fab fa-get-pocket" aria-hidden=true></i>
-</a>
-</li>
-<li>
-<a class=icon href="http://reddit.com/submit?url=https%3a%2f%2fdvoros.com%2fposts%2fon-demand-vpn%2f&title=On-demand%20VPN" aria-label=reddit>
-<i class="fab fa-reddit" aria-hidden=true></i>
-</a>
-</li>
-<li>
-<a class=icon href="http://www.tumblr.com/share/link?url=https%3a%2f%2fdvoros.com%2fposts%2fon-demand-vpn%2f&name=On-demand%20VPN&description=For%20about%20a%20month%20now%20I%26rsquo%3bve%20been%20travelling%20abroad%20and%20been%20surviving%20on%20dodgy%20public%20Wi-Fis%20and%20networks%20operated%20by%20my%20Airbnb%20hosts.%20Under%20such%20circumstances%20I%20prefer%20tunneling%20all%20my%20traffic%20through%20VPN%20to%20avoid%20eavesdropping.%0aFor%20a%20long%20time%20I%26rsquo%3bve%20had%20an%20always-on%20beefy%20VPS%20with%20OpenVPN%20running%20so%20this%20wasn%26rsquo%3bt%20an%20issue.%20However%2c%20a%20while%20back%20I%26rsquo%3bve%20decided%20to%20save%20some%20money%20by%20scaling%20it%20down%20to%20a%20very%20small%20instance%20and%20running%20bigger%20workloads%20%28VPN%20included%29%20on%20ephemeral%20instances." aria-label=Tumblr>
-<i class="fab fa-tumblr" aria-hidden=true></i>
-</a>
-</li>
-<li>
-<a class=icon href="https://news.ycombinator.com/submitlink?u=https%3a%2f%2fdvoros.com%2fposts%2fon-demand-vpn%2f&t=On-demand%20VPN" aria-label="Hacker News">
-<i class="fab fa-hacker-news" aria-hidden=true></i>
-</a>
-</li>
-</ul>
-</div>
-<div id=toc>
-<nav id=TableOfContents>
-<ul>
-<li><a href=#the-experience>The experience</a></li>
-<li><a href=#how-does-it-work>How does it work?</a>
-<ul>
-<li><a href=#the-discord-bot>The Discord bot</a></li>
-<li><a href=#scaleway-automation>Scaleway automation</a></li>
-<li><a href=#openvpn>OpenVPN</a></li>
-<li><a href=#termination>Termination</a></li>
-</ul>
-</li>
-<li><a href=#should-you-do-this>Should you do this?</a></li>
-</ul>
-</nav>
-</div>
-</span>
-</div>
-<article class=post itemscope itemtype=http://schema.org/BlogPosting>
-<header>
-<h1 class=posttitle itemprop="name headline">
-On-demand VPN
-</h1>
-<div class=meta>
-<div class=postdate>
-<time datetime="2021-09-23 16:51:25 +0200 +0200" itemprop=datePublished>2021-09-23</time>
-</div>
-<div class=article-read-time>
-<i class="far fa-clock"></i>
-4 minute read
-</div>
-<div class=article-category>
-<i class="fas fa-archive"></i>
-<a class=category-link href=/categories/notes>notes</a>
-</div>
-<div class=article-tag>
-<i class="fas fa-tag"></i>
+<span id=i-share class=info style=display:none>Share post</span></span><br><div id=share style=display:none><ul><li><a class=icon href="http://www.facebook.com/sharer.php?u=https%3a%2f%2fdvoros.com%2fposts%2fon-demand-vpn%2f" aria-label=Facebook><i class="fab fa-facebook" aria-hidden=true></i></a></li><li><a class=icon href="https://twitter.com/share?url=https%3a%2f%2fdvoros.com%2fposts%2fon-demand-vpn%2f&text=On-demand%20VPN" aria-label=Twitter><i class="fab fa-twitter" aria-hidden=true></i></a></li><li><a class=icon href="http://www.linkedin.com/shareArticle?url=https%3a%2f%2fdvoros.com%2fposts%2fon-demand-vpn%2f&title=On-demand%20VPN" aria-label=Linkedin><i class="fab fa-linkedin" aria-hidden=true></i></a></li><li><a class=icon href="https://pinterest.com/pin/create/bookmarklet/?url=https%3a%2f%2fdvoros.com%2fposts%2fon-demand-vpn%2f&is_video=false&description=On-demand%20VPN" aria-label=Pinterest><i class="fab fa-pinterest" aria-hidden=true></i></a></li><li><a class=icon href="mailto:?subject=On-demand%20VPN&body=Check out this article: https%3a%2f%2fdvoros.com%2fposts%2fon-demand-vpn%2f" aria-label=Email><i class="fas fa-envelope" aria-hidden=true></i></a></li><li><a class=icon href="https://getpocket.com/save?url=https%3a%2f%2fdvoros.com%2fposts%2fon-demand-vpn%2f&title=On-demand%20VPN" aria-label=Pocket><i class="fab fa-get-pocket" aria-hidden=true></i></a></li><li><a class=icon href="http://reddit.com/submit?url=https%3a%2f%2fdvoros.com%2fposts%2fon-demand-vpn%2f&title=On-demand%20VPN" aria-label=reddit><i class="fab fa-reddit" aria-hidden=true></i></a></li><li><a class=icon href="http://www.tumblr.com/share/link?url=https%3a%2f%2fdvoros.com%2fposts%2fon-demand-vpn%2f&name=On-demand%20VPN&description=%3cp%3eFor%20about%20a%20month%20now%20I%26rsquo%3bve%20been%20travelling%20abroad%20and%20been%20surviving%20on%0adodgy%20public%20Wi-Fis%20and%20networks%20operated%20by%20my%20Airbnb%20hosts.%20Under%0asuch%20circumstances%20I%20prefer%20tunneling%20all%20my%20traffic%20through%20VPN%20to%0aavoid%20eavesdropping.%3c%2fp%3e%0a%3cp%3eFor%20a%20long%20time%20I%26rsquo%3bve%20had%20an%20always-on%20beefy%20VPS%20with%20OpenVPN%20running%20so%20this%0awasn%26rsquo%3bt%20an%20issue.%20However%2c%20a%20while%20back%20I%26rsquo%3bve%20decided%20to%20save%20some%20money%0aby%20scaling%20it%20down%20to%20a%20very%20small%20instance%20and%20running%20bigger%20workloads%0a%28VPN%20included%29%20on%20ephemeral%20instances.%3c%2fp%3e" aria-label=Tumblr><i class="fab fa-tumblr" aria-hidden=true></i></a></li><li><a class=icon href="https://news.ycombinator.com/submitlink?u=https%3a%2f%2fdvoros.com%2fposts%2fon-demand-vpn%2f&t=On-demand%20VPN" aria-label="Hacker News"><i class="fab fa-hacker-news" aria-hidden=true></i></a></li></ul></div><div id=toc><nav id=TableOfContents><ul><li><a href=#the-experience>The experience</a></li><li><a href=#how-does-it-work>How does it work?</a><ul><li><a href=#the-discord-bot>The Discord bot</a></li><li><a href=#scaleway-automation>Scaleway automation</a></li><li><a href=#openvpn>OpenVPN</a></li><li><a href=#termination>Termination</a></li></ul></li><li><a href=#should-you-do-this>Should you do this?</a></li></ul></nav></div></span></div><article class=post itemscope itemtype=http://schema.org/BlogPosting><header><h1 class=posttitle itemprop="name headline">On-demand VPN</h1><div class=meta><div class=postdate><time datetime="2021-09-23 16:51:25 +0200 +0200" itemprop=datePublished>2021-09-23</time></div><div class=article-read-time><i class="far fa-clock"></i>
+4 minute read</div><div class=article-category><i class="fas fa-archive"></i>
+<a class=category-link href=/categories/notes>notes</a></div><div class=article-tag><i class="fas fa-tag"></i>
 <a class=tag-link href=/tags/vpn rel=tag>vpn</a>
 ,
 <a class=tag-link href=/tags/discord rel=tag>discord</a>
 ,
-<a class=tag-link href=/tags/openvpn rel=tag>openvpn</a>
-</div>
-</div>
-</header>
-<div class=content itemprop=articleBody>
-<p>For about a month now I&rsquo;ve been travelling abroad and been surviving on
+<a class=tag-link href=/tags/openvpn rel=tag>openvpn</a></div></div></header><div class=content itemprop=articleBody><p>For about a month now I&rsquo;ve been travelling abroad and been surviving on
 dodgy public Wi-Fis and networks operated by my Airbnb hosts. Under
 such circumstances I prefer tunneling all my traffic through VPN to
-avoid eavesdropping.</p>
-<p>For a long time I&rsquo;ve had an always-on beefy VPS with OpenVPN running so this
+avoid eavesdropping.</p><p>For a long time I&rsquo;ve had an always-on beefy VPS with OpenVPN running so this
 wasn&rsquo;t an issue. However, a while back I&rsquo;ve decided to save some money
 by scaling it down to a very small instance and running bigger workloads
-(VPN included) on ephemeral instances.</p>
-<p>In this post I&rsquo;ll describe how I ended up with an on-demand personal VPN
-controlled by a Discord bot.</p>
-<h2 id=the-experience>The experience</h2>
-<p>Whenever I need a VPN connection I have to hop on Discord and message a
-bot running on my Discord server:</p>
-<div style=text-align:center>
-<img src=https://dvoros.com/images/vpn-discord-start.png style=max-width:80% alt data-zoomable>
-</div>
-<p>It immediately acknowledges the request with the <code>working on it</code> response
+(VPN included) on ephemeral instances.</p><p>In this post I&rsquo;ll describe how I ended up with an on-demand personal VPN
+controlled by a Discord bot.</p><h2 id=the-experience>The experience</h2><p>Whenever I need a VPN connection I have to hop on Discord and message a
+bot running on my Discord server:</p><div style=text-align:center><img src=https://dvoros.com/images/vpn-discord-start.png style=max-width:80% alt data-zoomable></div><p>It immediately acknowledges the request with the <code>working on it</code> response
 and then replies within a few minutes with <code>VPN started</code> once the VPN is
-ready. It even adds a little check mark to your request, lovely!</p>
-<p>I can also check the current status and list connected users via Discord:</p>
-<div style=text-align:center>
-<img src=https://dvoros.com/images/vpn-discord-status-list.png style=max-width:80% alt data-zoomable>
-</div>
-<p>Output is a little cryptic but it has the IP address of the connected
-hosts which is usually what I&rsquo;m interested in.</p>
-<p>How to shut down the VPN once I&rsquo;m done with it? If you&rsquo;ve guessed I
+ready. It even adds a little check mark to your request, lovely!</p><p>I can also check the current status and list connected users via Discord:</p><div style=text-align:center><img src=https://dvoros.com/images/vpn-discord-status-list.png style=max-width:80% alt data-zoomable></div><p>Output is a little cryptic but it has the IP address of the connected
+hosts which is usually what I&rsquo;m interested in.</p><p>How to shut down the VPN once I&rsquo;m done with it? If you&rsquo;ve guessed I
 need to message <code>vpn-stop</code>, you&rsquo;re smart but wrong. Do you really believe
 I would remember to do that? The instance is paid by the minute so it
 is terminated once no one is using it! (Do you think I remember to
-disconnect from the VPN once I don&rsquo;t need it anymore? 🤔)</p>
-<blockquote class="hint info">
-<p><strong>Why is it called <code>mc-bot</code>?</strong></p>
-<p>This bot started off as a way to spin up/down my Minecraft server, but then
-VPN proved to be more important so I&rsquo;ve implemented that first. 🙂</p>
-</blockquote>
-<h2 id=how-does-it-work>How does it work?</h2>
-<p>When you message the bot, Discord will notify a Go service backing the bot
+disconnect from the VPN once I don&rsquo;t need it anymore? 🤔)</p><blockquote class="hint info"><p><strong>Why is it called <code>mc-bot</code>?</strong></p><p>This bot started off as a way to spin up/down my Minecraft server, but then
+VPN proved to be more important so I&rsquo;ve implemented that first. 🙂</p></blockquote><h2 id=how-does-it-work>How does it work?</h2><p>When you message the bot, Discord will notify a Go service backing the bot
 running on the always-on server. This service is capable of spinning up a
 new
 <a href=https://www.scaleway.com/en/docs/compute/>Scaleway compute</a>
-instance to launch the VPN and then ask for its status later.</p>
-<div style=text-align:center>
-<img src=https://dvoros.com/images/on-demand-vpn-architecture.png style=max-width:80% alt data-zoomable>
-</div>
-<p>A <code>cron</code> job is configured to run every minute to check if there are users
+instance to launch the VPN and then ask for its status later.</p><div style=text-align:center><img src=https://dvoros.com/images/on-demand-vpn-architecture.png style=max-width:80% alt data-zoomable></div><p>A <code>cron</code> job is configured to run every minute to check if there are users
 connected to the VPN. If no one used the VPN for 5 minutes, it will terminate
-the instance.</p>
-<p>Now let&rsquo;s see these components in a little more detail.</p>
-<h3 id=the-discord-bot>The Discord bot</h3>
-<p>The Discord bot is backed by a Go service that&rsquo;s running on the always-on
+the instance.</p><p>Now let&rsquo;s see these components in a little more detail.</p><h3 id=the-discord-bot>The Discord bot</h3><p>The Discord bot is backed by a Go service that&rsquo;s running on the always-on
 instance. You can find its source code
-<a href=https://github.com/dvoros/scw-bot>here</a>.</p>
-<p>It relies on a 3rd party Go library
+<a href=https://github.com/dvoros/scw-bot>here</a>.</p><p>It relies on a 3rd party Go library
 (<a href=https://github.com/bwmarrin/discordgo><code>github.com/bwmarrin/discordgo</code></a>)
 to handle the connection to the Discord servers. It receives every request on
 every channel where the bot is added and also private messages. On seeing
 certain keywords associated with its commands, it executes custom functions.
 For most commands it executes shell scripts where the infrastrucure operations
-are handled. For example:</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go data-lang=go><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">1</span><span style=color:#8be9fd;font-style:italic>func</span> <span style=color:#50fa7b>VpnStatusCallback</span>(s <span style=color:#ff79c6>*</span>discordgo.Session, m <span style=color:#ff79c6>*</span>discordgo.MessageCreate) {
-<span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">2</span>	out, err <span style=color:#ff79c6>:=</span> exec.<span style=color:#50fa7b>Command</span>(<span style=color:#f1fa8c>&#34;/bin/bash&#34;</span>, <span style=color:#f1fa8c>&#34;/root/scw-automation/bin/scw-vpn-status.sh&#34;</span>).<span style=color:#50fa7b>CombinedOutput</span>()
-<span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">3</span>	<span style=color:#ff79c6>if</span> err <span style=color:#ff79c6>!=</span> <span style=color:#ff79c6>nil</span> {
-<span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">4</span>		s.<span style=color:#50fa7b>ChannelMessageSend</span>(m.ChannelID, fmt.<span style=color:#50fa7b>Sprintf</span>(<span style=color:#f1fa8c>&#34;❌ %s&#34;</span>, strings.<span style=color:#50fa7b>TrimSpace</span>(<span style=color:#8be9fd;font-style:italic>string</span>(out))))
-<span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">5</span>		<span style=color:#ff79c6>return</span>
-<span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">6</span>	}
-<span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">7</span>	s.<span style=color:#50fa7b>ChannelMessageSend</span>(m.ChannelID, fmt.<span style=color:#50fa7b>Sprintf</span>(<span style=color:#f1fa8c>&#34;✅ %s&#34;</span>, strings.<span style=color:#50fa7b>TrimSpace</span>(<span style=color:#8be9fd;font-style:italic>string</span>(out))))
-<span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">8</span>}
-</code></pre></div><h3 id=scaleway-automation>Scaleway automation</h3>
-<p>The infrastructure operations the bot is doing (starting, monitoring the
+are handled. For example:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-go data-lang=go><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1</span><span><span style=color:#8be9fd;font-style:italic>func</span> <span style=color:#50fa7b>VpnStatusCallback</span>(s <span style=color:#ff79c6>*</span>discordgo.Session, m <span style=color:#ff79c6>*</span>discordgo.MessageCreate) {
+</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2</span><span>	out, err <span style=color:#ff79c6>:=</span> exec.<span style=color:#50fa7b>Command</span>(<span style=color:#f1fa8c>&#34;/bin/bash&#34;</span>, <span style=color:#f1fa8c>&#34;/root/scw-automation/bin/scw-vpn-status.sh&#34;</span>).<span style=color:#50fa7b>CombinedOutput</span>()
+</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3</span><span>	<span style=color:#ff79c6>if</span> err <span style=color:#ff79c6>!=</span> <span style=color:#ff79c6>nil</span> {
+</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">4</span><span>		s.<span style=color:#50fa7b>ChannelMessageSend</span>(m.ChannelID, fmt.<span style=color:#50fa7b>Sprintf</span>(<span style=color:#f1fa8c>&#34;❌ %s&#34;</span>, strings.<span style=color:#50fa7b>TrimSpace</span>(<span style=color:#8be9fd;font-style:italic>string</span>(out))))
+</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">5</span><span>		<span style=color:#ff79c6>return</span>
+</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">6</span><span>	}
+</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">7</span><span>	s.<span style=color:#50fa7b>ChannelMessageSend</span>(m.ChannelID, fmt.<span style=color:#50fa7b>Sprintf</span>(<span style=color:#f1fa8c>&#34;✅ %s&#34;</span>, strings.<span style=color:#50fa7b>TrimSpace</span>(<span style=color:#8be9fd;font-style:italic>string</span>(out))))
+</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">8</span><span>}
+</span></span></code></pre></div><h3 id=scaleway-automation>Scaleway automation</h3><p>The infrastructure operations the bot is doing (starting, monitoring the
 instances) are written as shell scripts. In hindsight, they could have been
 implemented in Go, but I had them lying around before I&rsquo;ve made the Discord
-bot in Go.</p>
-<p>These scripts rely on the
+bot in Go.</p><p>These scripts rely on the
 <a href=https://www.scaleway.com/en/cli/>Scaleway CLI</a>
-to interact with the instances. Starting a new instance is this simple:</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">1</span>scw instance server create <span style=color:#8be9fd;font-style:italic>type</span><span style=color:#ff79c6>=</span>DEV1-S <span style=color:#8be9fd;font-style:italic>zone</span><span style=color:#ff79c6>=</span>fr-par-1 <span style=color:#8be9fd;font-style:italic>image</span><span style=color:#ff79c6>=</span>ubuntu_focal root-volume<span style=color:#ff79c6>=</span>l:20G  <span style=color:#8be9fd;font-style:italic>name</span><span style=color:#ff79c6>=</span>vpn -o <span style=color:#8be9fd;font-style:italic>template</span><span style=color:#ff79c6>=</span><span style=color:#f1fa8c>&#34;{{ .ID }}&#34;</span>
-</code></pre></div><p>SSH public keys of the always-on instance are automatically added to every
-new instance, so all scripts can SSH to the running instances.</p>
-<h3 id=openvpn>OpenVPN</h3>
-<p>For installing OpenVPN, I&rsquo;m relying on this project:
-<a href=https://github.com/angristan/openvpn-install>https://github.com/angristan/openvpn-install</a></p>
-<p>If I need to add/remove users or modify any OpenVPN configuration, I can
+to interact with the instances. Starting a new instance is this simple:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1</span><span>scw instance server create <span style=color:#8be9fd;font-style:italic>type</span><span style=color:#ff79c6>=</span>DEV1-S <span style=color:#8be9fd;font-style:italic>zone</span><span style=color:#ff79c6>=</span>fr-par-1 <span style=color:#8be9fd;font-style:italic>image</span><span style=color:#ff79c6>=</span>ubuntu_focal root-volume<span style=color:#ff79c6>=</span>l:20G  <span style=color:#8be9fd;font-style:italic>name</span><span style=color:#ff79c6>=</span>vpn -o <span style=color:#8be9fd;font-style:italic>template</span><span style=color:#ff79c6>=</span><span style=color:#f1fa8c>&#34;{{ .ID }}&#34;</span>
+</span></span></code></pre></div><p>SSH public keys of the always-on instance are automatically added to every
+new instance, so all scripts can SSH to the running instances.</p><h3 id=openvpn>OpenVPN</h3><p>For installing OpenVPN, I&rsquo;m relying on this project:
+<a href=https://github.com/angristan/openvpn-install>https://github.com/angristan/openvpn-install</a></p><p>If I need to add/remove users or modify any OpenVPN configuration, I can
 manually SSH into the running instance and execute the <code>openvpn-install.sh</code>
 script again to do so. To persist the configuration, I download it from the
-instance to the location where it will be copied from to any new instances:</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1</span><span style=color:#6272a4># Prepare config tgz on VPN server</span>
-<span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2</span>cat <span style=color:#f1fa8c>&lt;&lt; EOF | ssh -q -o BatchMode=yes -o &#34;StrictHostKeyChecking=no&#34; -o &#34;ConnectTimeout=5&#34; vpn.asdasd.hu &#39;bash -&#39;
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3</span><span style=color:#f1fa8c>        rm -f /tmp/openvpn-conf.tar.gz
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4</span><span style=color:#f1fa8c>        tar -czf /tmp/openvpn-conf.tar.gz /etc/openvpn
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5</span><span style=color:#f1fa8c>EOF</span>
-<span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6</span>
-<span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7</span><span style=color:#6272a4># Backup old config</span>
-<span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8</span>mv <span style=color:#8be9fd;font-style:italic>$OWN_DIR</span>/openvpn-conf.tar.gz <span style=color:#8be9fd;font-style:italic>$OWN_DIR</span>/old-configs/openvpn-conf-<span style=color:#f1fa8c>`</span>date +%Y-%m-%dT%H-%M<span style=color:#f1fa8c>`</span>.tar.gz
-<span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9</span>
-<span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">10</span><span style=color:#6272a4># Save new</span>
-<span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">11</span>scp -o <span style=color:#f1fa8c>&#34;StrictHostKeyChecking=no&#34;</span> vpn.asdasd.hu:/tmp/openvpn-conf.tar.gz <span style=color:#8be9fd;font-style:italic>$OWN_DIR</span>/
-</code></pre></div><h3 id=termination>Termination</h3>
-<p>As mentioned above, I&rsquo;d like to avoid forgetting to terminate the VPN
+instance to the location where it will be copied from to any new instances:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1</span><span><span style=color:#6272a4># Prepare config tgz on VPN server</span>
+</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2</span><span>cat <span style=color:#f1fa8c>&lt;&lt; EOF | ssh -q -o BatchMode=yes -o &#34;StrictHostKeyChecking=no&#34; -o &#34;ConnectTimeout=5&#34; vpn.asdasd.hu &#39;bash -&#39;
+</span></span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3</span><span><span style=color:#f1fa8c>        rm -f /tmp/openvpn-conf.tar.gz
+</span></span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4</span><span><span style=color:#f1fa8c>        tar -czf /tmp/openvpn-conf.tar.gz /etc/openvpn
+</span></span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5</span><span><span style=color:#f1fa8c>EOF</span>
+</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6</span><span>
+</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7</span><span><span style=color:#6272a4># Backup old config</span>
+</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8</span><span>mv <span style=color:#8be9fd;font-style:italic>$OWN_DIR</span>/openvpn-conf.tar.gz <span style=color:#8be9fd;font-style:italic>$OWN_DIR</span>/old-configs/openvpn-conf-<span style=color:#f1fa8c>`</span>date +%Y-%m-%dT%H-%M<span style=color:#f1fa8c>`</span>.tar.gz
+</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9</span><span>
+</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10</span><span><span style=color:#6272a4># Save new</span>
+</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11</span><span>scp -o <span style=color:#f1fa8c>&#34;StrictHostKeyChecking=no&#34;</span> vpn.asdasd.hu:/tmp/openvpn-conf.tar.gz <span style=color:#8be9fd;font-style:italic>$OWN_DIR</span>/
+</span></span></code></pre></div><h3 id=termination>Termination</h3><p>As mentioned above, I&rsquo;d like to avoid forgetting to terminate the VPN
 instance, so I have a <code>cron</code> job in place that terminates the instance once no
-one&rsquo;s using it anymore:</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1</span><span style=color:#8be9fd;font-style:italic>PREV_INACTIVE</span><span style=color:#ff79c6>=</span><span style=color:#f1fa8c>`</span>cat /tmp/vpn-inactive-since<span style=color:#f1fa8c>`</span>
-<span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2</span>
-<span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3</span><span style=color:#8be9fd;font-style:italic>CONN_COUNT</span><span style=color:#ff79c6>=</span><span style=color:#f1fa8c>`</span><span style=color:#8be9fd;font-style:italic>$OWN_DIR</span>/bin/scw-vpn-connection-count.sh<span style=color:#f1fa8c>`</span>
-<span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4</span><span style=color:#ff79c6>if</span> <span style=color:#ff79c6>[</span> ! <span style=color:#8be9fd;font-style:italic>$?</span> -eq <span style=color:#bd93f9>0</span> <span style=color:#ff79c6>]</span>; <span style=color:#ff79c6>then</span>
-<span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5</span>        <span style=color:#8be9fd;font-style:italic>echo</span> <span style=color:#f1fa8c>&#34;unable to connect to VPN, probably not running&#34;</span>
-<span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6</span>        <span style=color:#8be9fd;font-style:italic>exit</span> <span style=color:#bd93f9>3</span>
-<span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7</span><span style=color:#ff79c6>fi</span>
-<span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8</span><span style=color:#ff79c6>if</span> <span style=color:#ff79c6>[</span> <span style=color:#8be9fd;font-style:italic>$CONN_COUNT</span> -eq <span style=color:#bd93f9>0</span> <span style=color:#ff79c6>]</span>; <span style=color:#ff79c6>then</span>
-<span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9</span>        <span style=color:#8be9fd;font-style:italic>let</span> <span style=color:#8be9fd;font-style:italic>PREV_INACTIVE</span><span style=color:#ff79c6>=</span><span style=color:#8be9fd;font-style:italic>$PREV_INACTIVE</span>+1
-<span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">10</span><span style=color:#ff79c6>else</span>
-<span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">11</span>        <span style=color:#8be9fd;font-style:italic>let</span> <span style=color:#8be9fd;font-style:italic>PREV_INACTIVE</span><span style=color:#ff79c6>=</span><span style=color:#bd93f9>0</span>
-<span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">12</span><span style=color:#ff79c6>fi</span>
-<span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">13</span>
-<span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">14</span><span style=color:#ff79c6>if</span> <span style=color:#ff79c6>[</span> <span style=color:#8be9fd;font-style:italic>$PREV_INACTIVE</span> -ge <span style=color:#bd93f9>5</span> <span style=color:#ff79c6>]</span>; <span style=color:#ff79c6>then</span>
-<span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">15</span>        <span style=color:#8be9fd;font-style:italic>$OWN_DIR</span>/bin/scw-vpn-terminate.sh
-<span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">16</span><span style=color:#ff79c6>fi</span>
-<span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">17</span>
-<span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">18</span><span style=color:#8be9fd;font-style:italic>echo</span> <span style=color:#8be9fd;font-style:italic>$PREV_INACTIVE</span> &gt; /tmp/vpn-inactive-since
-</code></pre></div><p>The connection count was ugly enough to put into its own file:</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">1</span>cat <span style=color:#f1fa8c>&lt;&lt; EOF | ssh -q -o BatchMode=yes -o &#34;StrictHostKeyChecking=no&#34; -o &#34;ConnectTimeout=5&#34; vpn.asdasd.hu &#39;bash -&#39;
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">2</span><span style=color:#f1fa8c>        { echo &#34;load-stats&#34;; sleep 1; } | telnet localhost 7505 2&gt;/dev/null | grep SUCCESS | sed -E &#39;s/^.*nclients=([0-9]+),.*$/\1/&#39;
-</span><span style="margin-right:.4em;padding:0 .4em;color:#7f7f7f">3</span><span style=color:#f1fa8c>EOF</span>
-</code></pre></div><h2 id=should-you-do-this>Should you do this?</h2>
-<p>Probably not. It&rsquo;s a lot easier to just buy the VPN service. I had a pleasant
+one&rsquo;s using it anymore:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 1</span><span><span style=color:#8be9fd;font-style:italic>PREV_INACTIVE</span><span style=color:#ff79c6>=</span><span style=color:#f1fa8c>`</span>cat /tmp/vpn-inactive-since<span style=color:#f1fa8c>`</span>
+</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 2</span><span>
+</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 3</span><span><span style=color:#8be9fd;font-style:italic>CONN_COUNT</span><span style=color:#ff79c6>=</span><span style=color:#f1fa8c>`</span><span style=color:#8be9fd;font-style:italic>$OWN_DIR</span>/bin/scw-vpn-connection-count.sh<span style=color:#f1fa8c>`</span>
+</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 4</span><span><span style=color:#ff79c6>if</span> <span style=color:#ff79c6>[</span> ! <span style=color:#8be9fd;font-style:italic>$?</span> -eq <span style=color:#bd93f9>0</span> <span style=color:#ff79c6>]</span>; <span style=color:#ff79c6>then</span>
+</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 5</span><span>        <span style=color:#8be9fd;font-style:italic>echo</span> <span style=color:#f1fa8c>&#34;unable to connect to VPN, probably not running&#34;</span>
+</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 6</span><span>        <span style=color:#8be9fd;font-style:italic>exit</span> <span style=color:#bd93f9>3</span>
+</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 7</span><span><span style=color:#ff79c6>fi</span>
+</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 8</span><span><span style=color:#ff79c6>if</span> <span style=color:#ff79c6>[</span> <span style=color:#8be9fd;font-style:italic>$CONN_COUNT</span> -eq <span style=color:#bd93f9>0</span> <span style=color:#ff79c6>]</span>; <span style=color:#ff79c6>then</span>
+</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f"> 9</span><span>        <span style=color:#8be9fd;font-style:italic>let</span> <span style=color:#8be9fd;font-style:italic>PREV_INACTIVE</span><span style=color:#ff79c6>=</span><span style=color:#8be9fd;font-style:italic>$PREV_INACTIVE</span>+1
+</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">10</span><span><span style=color:#ff79c6>else</span>
+</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">11</span><span>        <span style=color:#8be9fd;font-style:italic>let</span> <span style=color:#8be9fd;font-style:italic>PREV_INACTIVE</span><span style=color:#ff79c6>=</span><span style=color:#bd93f9>0</span>
+</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">12</span><span><span style=color:#ff79c6>fi</span>
+</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">13</span><span>
+</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">14</span><span><span style=color:#ff79c6>if</span> <span style=color:#ff79c6>[</span> <span style=color:#8be9fd;font-style:italic>$PREV_INACTIVE</span> -ge <span style=color:#bd93f9>5</span> <span style=color:#ff79c6>]</span>; <span style=color:#ff79c6>then</span>
+</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">15</span><span>        <span style=color:#8be9fd;font-style:italic>$OWN_DIR</span>/bin/scw-vpn-terminate.sh
+</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">16</span><span><span style=color:#ff79c6>fi</span>
+</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">17</span><span>
+</span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">18</span><span><span style=color:#8be9fd;font-style:italic>echo</span> <span style=color:#8be9fd;font-style:italic>$PREV_INACTIVE</span> &gt; /tmp/vpn-inactive-since
+</span></span></code></pre></div><p>The connection count was ugly enough to put into its own file:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">1</span><span>cat <span style=color:#f1fa8c>&lt;&lt; EOF | ssh -q -o BatchMode=yes -o &#34;StrictHostKeyChecking=no&#34; -o &#34;ConnectTimeout=5&#34; vpn.asdasd.hu &#39;bash -&#39;
+</span></span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">2</span><span><span style=color:#f1fa8c>        { echo &#34;load-stats&#34;; sleep 1; } | telnet localhost 7505 2&gt;/dev/null | grep SUCCESS | sed -E &#39;s/^.*nclients=([0-9]+),.*$/\1/&#39;
+</span></span></span><span style=display:flex><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:.4em;padding:0 .4em;color:#7f7f7f">3</span><span><span style=color:#f1fa8c>EOF</span>
+</span></span></code></pre></div><h2 id=should-you-do-this>Should you do this?</h2><p>Probably not. It&rsquo;s a lot easier to just buy the VPN service. I had a pleasant
 experience with
 <a href=https://nordvpn.com/>NordVPN</a>
 earlier and it has the added benefit of being able
@@ -294,123 +106,8 @@ to select from a great variety of host countries to get around
 There are two downsides. One is the price, but with intensive use it&rsquo;s
 comparable to hosting your own. The other is the question of trust and
 privacy, but
-<a href=https://www.troyhunt.com/im-partnering-with-nord-as-a-strategic-adviser/>NordVPN seems to be delivering on that front</a>.</p>
-</div>
-</article>
-<div class=blog-post-comments>
-<script data-isso=//comments.dvoros.com/ data-isso-reply-to-self=false data-isso-require-author=true data-isso-require-email=true src=//comments.dvoros.com/js/embed.min.js></script>
-<section id=isso-thread></section>
-</div>
-<div id=footer-post-container>
-<div id=footer-post>
-<div id=nav-footer style=display:none>
-<ul>
-<li><a href=/>Home</a></li>
-<li><a href=/posts>Writings</a></li>
-<li><a href=/tags>Tags</a></li>
-<li><a href=/about>About</a></li>
-</ul>
-</div>
-<div id=toc-footer style=display:none>
-<nav id=TableOfContents>
-<ul>
-<li><a href=#the-experience>The experience</a></li>
-<li><a href=#how-does-it-work>How does it work?</a>
-<ul>
-<li><a href=#the-discord-bot>The Discord bot</a></li>
-<li><a href=#scaleway-automation>Scaleway automation</a></li>
-<li><a href=#openvpn>OpenVPN</a></li>
-<li><a href=#termination>Termination</a></li>
-</ul>
-</li>
-<li><a href=#should-you-do-this>Should you do this?</a></li>
-</ul>
-</nav>
-</div>
-<div id=share-footer style=display:none>
-<ul>
-<li>
-<a class=icon href="http://www.facebook.com/sharer.php?u=https%3a%2f%2fdvoros.com%2fposts%2fon-demand-vpn%2f" aria-label=Facebook>
-<i class="fab fa-facebook fa-lg" aria-hidden=true></i>
-</a>
-</li>
-<li>
-<a class=icon href="https://twitter.com/share?url=https%3a%2f%2fdvoros.com%2fposts%2fon-demand-vpn%2f&text=On-demand%20VPN" aria-label=Twitter>
-<i class="fab fa-twitter fa-lg" aria-hidden=true></i>
-</a>
-</li>
-<li>
-<a class=icon href="http://www.linkedin.com/shareArticle?url=https%3a%2f%2fdvoros.com%2fposts%2fon-demand-vpn%2f&title=On-demand%20VPN" aria-label=Linkedin>
-<i class="fab fa-linkedin fa-lg" aria-hidden=true></i>
-</a>
-</li>
-<li>
-<a class=icon href="https://pinterest.com/pin/create/bookmarklet/?url=https%3a%2f%2fdvoros.com%2fposts%2fon-demand-vpn%2f&is_video=false&description=On-demand%20VPN" aria-label=Pinterest>
-<i class="fab fa-pinterest fa-lg" aria-hidden=true></i>
-</a>
-</li>
-<li>
-<a class=icon href="mailto:?subject=On-demand%20VPN&body=Check out this article: https%3a%2f%2fdvoros.com%2fposts%2fon-demand-vpn%2f" aria-label=Email>
-<i class="fas fa-envelope fa-lg" aria-hidden=true></i>
-</a>
-</li>
-<li>
-<a class=icon href="https://getpocket.com/save?url=https%3a%2f%2fdvoros.com%2fposts%2fon-demand-vpn%2f&title=On-demand%20VPN" aria-label=Pocket>
-<i class="fab fa-get-pocket fa-lg" aria-hidden=true></i>
-</a>
-</li>
-<li>
-<a class=icon href="http://reddit.com/submit?url=https%3a%2f%2fdvoros.com%2fposts%2fon-demand-vpn%2f&title=On-demand%20VPN" aria-label=reddit>
-<i class="fab fa-reddit fa-lg" aria-hidden=true></i>
-</a>
-</li>
-<li>
-<a class=icon href="http://www.tumblr.com/share/link?url=https%3a%2f%2fdvoros.com%2fposts%2fon-demand-vpn%2f&name=On-demand%20VPN&description=For%20about%20a%20month%20now%20I%26rsquo%3bve%20been%20travelling%20abroad%20and%20been%20surviving%20on%20dodgy%20public%20Wi-Fis%20and%20networks%20operated%20by%20my%20Airbnb%20hosts.%20Under%20such%20circumstances%20I%20prefer%20tunneling%20all%20my%20traffic%20through%20VPN%20to%20avoid%20eavesdropping.%0aFor%20a%20long%20time%20I%26rsquo%3bve%20had%20an%20always-on%20beefy%20VPS%20with%20OpenVPN%20running%20so%20this%20wasn%26rsquo%3bt%20an%20issue.%20However%2c%20a%20while%20back%20I%26rsquo%3bve%20decided%20to%20save%20some%20money%20by%20scaling%20it%20down%20to%20a%20very%20small%20instance%20and%20running%20bigger%20workloads%20%28VPN%20included%29%20on%20ephemeral%20instances." aria-label=Tumblr>
-<i class="fab fa-tumblr fa-lg" aria-hidden=true></i>
-</a>
-</li>
-<li>
-<a class=icon href="https://news.ycombinator.com/submitlink?u=https%3a%2f%2fdvoros.com%2fposts%2fon-demand-vpn%2f&t=On-demand%20VPN" aria-label="Hacker News">
-<i class="fab fa-hacker-news fa-lg" aria-hidden=true></i>
-</a>
-</li>
-</ul>
-</div>
-<div id=actions-footer>
-<a id=menu-toggle class=icon href=# onclick="return $('#nav-footer').toggle(),!1" aria-label=Menu>
-<i class="fas fa-bars fa-lg" aria-hidden=true></i> Menu</a>
-<a id=toc-toggle class=icon href=# onclick="return $('#toc-footer').toggle(),!1" aria-label=TOC>
-<i class="fas fa-list fa-lg" aria-hidden=true></i> TOC</a>
-<a id=share-toggle class=icon href=# onclick="return $('#share-footer').toggle(),!1" aria-label=Share>
-<i class="fas fa-share-alt fa-lg" aria-hidden=true></i> share</a>
-<a id=top style=display:none class=icon href=# onclick="$('html, body').animate({scrollTop:0},'fast')" aria-label="Top of Page">
-<i class="fas fa-chevron-up fa-lg" aria-hidden=true></i> Top</a>
-</div>
-</div>
-</div>
-<footer id=footer>
-<div class=footer-left>
-Copyright &copy; 2024
-Daniel Voros
-</div>
-<div class=footer-right>
-<nav>
-<ul>
-<li><a href=/>Home</a></li>
-<li><a href=/posts>Writings</a></li>
-<li><a href=/tags>Tags</a></li>
-<li><a href=/about>About</a></li>
-</ul>
-</nav>
-</div>
-</footer>
-<script src=//unpkg.com/medium-zoom@1.0.6/dist/medium-zoom.min.js></script>
-<script>mediumZoom('[data-zoomable]')</script>
-<script type=text/javascript>var _paq=window._paq=window._paq||[];_paq.push(['disableCookies']),_paq.push(['trackPageView']),_paq.push(['enableLinkTracking']),function(){var b="//matomo.dvoros.com/",c,a,d;_paq.push(['setTrackerUrl',b+'matomo.php']),_paq.push(['setSiteId','2']),c=document,a=c.createElement('script'),d=c.getElementsByTagName('script')[0],a.type='text/javascript',a.async=!0,a.src=b+'matomo.js',d.parentNode.insertBefore(a,d)}()</script>
-</div>
-</body>
-<link rel=stylesheet href=/lib/font-awesome/css/all.min.css>
-<script src=/lib/jquery/jquery.min.js></script>
-<script src=/js/main.js></script>
-<script src=/js/code-copy.js></script>
-</html>
+<a href=https://www.troyhunt.com/im-partnering-with-nord-as-a-strategic-adviser/>NordVPN seems to be delivering on that front</a>.</p></div></article><div class=blog-post-comments><script data-isso=//comments.dvoros.com/ data-isso-reply-to-self=false data-isso-require-author=true data-isso-require-email=true src=//comments.dvoros.com/js/embed.min.js></script><section id=isso-thread></section></div><div id=footer-post-container><div id=footer-post><div id=nav-footer style=display:none><ul><li><a href=/>Home</a></li><li><a href=/posts>Writings</a></li><li><a href=/tags>Tags</a></li><li><a href=/about>About</a></li></ul></div><div id=toc-footer style=display:none><nav id=TableOfContents><ul><li><a href=#the-experience>The experience</a></li><li><a href=#how-does-it-work>How does it work?</a><ul><li><a href=#the-discord-bot>The Discord bot</a></li><li><a href=#scaleway-automation>Scaleway automation</a></li><li><a href=#openvpn>OpenVPN</a></li><li><a href=#termination>Termination</a></li></ul></li><li><a href=#should-you-do-this>Should you do this?</a></li></ul></nav></div><div id=share-footer style=display:none><ul><li><a class=icon href="http://www.facebook.com/sharer.php?u=https%3a%2f%2fdvoros.com%2fposts%2fon-demand-vpn%2f" aria-label=Facebook><i class="fab fa-facebook fa-lg" aria-hidden=true></i></a></li><li><a class=icon href="https://twitter.com/share?url=https%3a%2f%2fdvoros.com%2fposts%2fon-demand-vpn%2f&text=On-demand%20VPN" aria-label=Twitter><i class="fab fa-twitter fa-lg" aria-hidden=true></i></a></li><li><a class=icon href="http://www.linkedin.com/shareArticle?url=https%3a%2f%2fdvoros.com%2fposts%2fon-demand-vpn%2f&title=On-demand%20VPN" aria-label=Linkedin><i class="fab fa-linkedin fa-lg" aria-hidden=true></i></a></li><li><a class=icon href="https://pinterest.com/pin/create/bookmarklet/?url=https%3a%2f%2fdvoros.com%2fposts%2fon-demand-vpn%2f&is_video=false&description=On-demand%20VPN" aria-label=Pinterest><i class="fab fa-pinterest fa-lg" aria-hidden=true></i></a></li><li><a class=icon href="mailto:?subject=On-demand%20VPN&body=Check out this article: https%3a%2f%2fdvoros.com%2fposts%2fon-demand-vpn%2f" aria-label=Email><i class="fas fa-envelope fa-lg" aria-hidden=true></i></a></li><li><a class=icon href="https://getpocket.com/save?url=https%3a%2f%2fdvoros.com%2fposts%2fon-demand-vpn%2f&title=On-demand%20VPN" aria-label=Pocket><i class="fab fa-get-pocket fa-lg" aria-hidden=true></i></a></li><li><a class=icon href="http://reddit.com/submit?url=https%3a%2f%2fdvoros.com%2fposts%2fon-demand-vpn%2f&title=On-demand%20VPN" aria-label=reddit><i class="fab fa-reddit fa-lg" aria-hidden=true></i></a></li><li><a class=icon href="http://www.tumblr.com/share/link?url=https%3a%2f%2fdvoros.com%2fposts%2fon-demand-vpn%2f&name=On-demand%20VPN&description=%3cp%3eFor%20about%20a%20month%20now%20I%26rsquo%3bve%20been%20travelling%20abroad%20and%20been%20surviving%20on%0adodgy%20public%20Wi-Fis%20and%20networks%20operated%20by%20my%20Airbnb%20hosts.%20Under%0asuch%20circumstances%20I%20prefer%20tunneling%20all%20my%20traffic%20through%20VPN%20to%0aavoid%20eavesdropping.%3c%2fp%3e%0a%3cp%3eFor%20a%20long%20time%20I%26rsquo%3bve%20had%20an%20always-on%20beefy%20VPS%20with%20OpenVPN%20running%20so%20this%0awasn%26rsquo%3bt%20an%20issue.%20However%2c%20a%20while%20back%20I%26rsquo%3bve%20decided%20to%20save%20some%20money%0aby%20scaling%20it%20down%20to%20a%20very%20small%20instance%20and%20running%20bigger%20workloads%0a%28VPN%20included%29%20on%20ephemeral%20instances.%3c%2fp%3e" aria-label=Tumblr><i class="fab fa-tumblr fa-lg" aria-hidden=true></i></a></li><li><a class=icon href="https://news.ycombinator.com/submitlink?u=https%3a%2f%2fdvoros.com%2fposts%2fon-demand-vpn%2f&t=On-demand%20VPN" aria-label="Hacker News"><i class="fab fa-hacker-news fa-lg" aria-hidden=true></i></a></li></ul></div><div id=actions-footer><a id=menu-toggle class=icon href=# onclick='return $("#nav-footer").toggle(),!1' aria-label=Menu><i class="fas fa-bars fa-lg" aria-hidden=true></i> Menu</a>
+<a id=toc-toggle class=icon href=# onclick='return $("#toc-footer").toggle(),!1' aria-label=TOC><i class="fas fa-list fa-lg" aria-hidden=true></i> TOC</a>
+<a id=share-toggle class=icon href=# onclick='return $("#share-footer").toggle(),!1' aria-label=Share><i class="fas fa-share-alt fa-lg" aria-hidden=true></i> share</a>
+<a id=top style=display:none class=icon href=# onclick='$("html, body").animate({scrollTop:0},"fast")' aria-label="Top of Page"><i class="fas fa-chevron-up fa-lg" aria-hidden=true></i> Top</a></div></div></div><footer id=footer><div class=footer-left>Copyright &copy; 2025
+Daniel Voros</div><div class=footer-right><nav><ul><li><a href=/>Home</a></li><li><a href=/posts>Writings</a></li><li><a href=/tags>Tags</a></li><li><a href=/about>About</a></li></ul></nav></div></footer><script src=//unpkg.com/medium-zoom@1.0.6/dist/medium-zoom.min.js></script><script>mediumZoom("[data-zoomable]")</script><script type=text/javascript>var _paq=window._paq=window._paq||[];_paq.push(["disableCookies"]),_paq.push(["trackPageView"]),_paq.push(["enableLinkTracking"]),function(){t="//matomo.dvoros.com/",_paq.push(["setTrackerUrl",t+"matomo.php"]),_paq.push(["setSiteId","2"]);var t,n=document,e=n.createElement("script"),s=n.getElementsByTagName("script")[0];e.type="text/javascript",e.async=!0,e.src=t+"matomo.js",s.parentNode.insertBefore(e,s)}()</script></div></body><link rel=stylesheet href=/lib/font-awesome/css/all.min.css><script src=/lib/jquery/jquery.min.js></script><script src=/js/main.js></script><script src=/js/code-copy.js></script></html>
