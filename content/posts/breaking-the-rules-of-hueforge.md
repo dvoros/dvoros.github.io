@@ -11,7 +11,7 @@ draft: false
 
 About a year ago I've come across [Hueforge](https://thehueforge.com), which is a
 great software for turning 2D images into 3D prints. I've experimented with it a
-little bit, and got some nice results. Here's the very first image I've tried
+little bit, and got some nice results. Here's the very first image I've played with
 and the result I got:
 
 {{< container-image path="images/color-blending-szalakota.jpg" width=80% >}}
@@ -91,7 +91,7 @@ but the following works well for simple images.
 
 ### 1. Vector Image
 
-First I create a special SVG with `path` objects only, where the `id` of objects encodes
+First I create a special SVG, where the `id` of objects encodes
 information about what color combinations will be needed to achieve the desired color.
 For example, `3w_2r` means 3 layers of `w`hite and 2 layers of `r`ed.
 
@@ -111,13 +111,13 @@ during designing if it resembles the desired color.
 I'm glossing over some details here, e.g. how the bottom 20 grey layers are achieved.
 If you're interested, you can take a closer look at the SVG. If you do so, keep in mind
 that this is supposed to be printed upside-down, that's why it's mirrored and why
-layer order is backwards.
+layer order is backwards in the SVG.
 {{< /hint >}}
 
 ### 2. 2D to 3D in Blender
 
-I'm using [a Blender script](https://gist.github.com/dvoros/85c9dcb6c9c651f64dc9d03d46b1406e)
-to convert the 2D curves from the SVG to 3D meshes with the layer heights defined
+With [a Blender script](https://gist.github.com/dvoros/85c9dcb6c9c651f64dc9d03d46b1406e)
+I convert the 2D curves from the SVG to 3D meshes using the layer heights defined
 in their `id`s.
 
 Here's a cross-section of the raw mesh after converting the coaster (vertical axis
@@ -134,20 +134,23 @@ for each part when slicing the print.
 
 Luckily I was not the first to run into this issue, and there was already a [pull request](https://github.com/Ghostkeeper/Blender3mfFormat/pull/58)
 open to fix this. Using this version, I get a 3MF file where the first
-letter of object names carries the color information:
+letter of each object name carries the color information:
 
 {{< container-image path="images/color-blending-blender-export.png" width=80% >}}
 
+{{< hint info >}}
+🤓 What do these cryptic names mean? `g_1_1g_4w` is the `1`st (`g`rey) part of the `1g_4w`
+object. `k_2_2g_3k` is the `2`nd (blac`k`) part of the `2g_3k` object.
+{{< /hint >}}
+
 ### Slicer settings
 
-After importing the 3MF into the slicer, I need to set the colors for each part and
-apply settings similar to what Hueforge needs (layer height, initial layer height,
+After importing the 3MF into the slicer, I need to manually set the colors for each part and
+apply general settings similar to what Hueforge needs (layer height, initial layer height,
 infill).
 
-{{< container-image path="images/color-blending-slicer-colors.png" width=80% >}}
-
 {{< hint info >}}
-🤓 When writing this post I've found that there were some updates to the 3MF exporter
+🤓 During writing this post I've found that there were some updates to the 3MF exporter
 [pull request](https://github.com/Ghostkeeper/Blender3mfFormat/pull/58)
 that might enable exporting the color information as well. Manual setting of the colors
 based on the object names wouldn't be required then.
@@ -158,7 +161,8 @@ And that's it, slice and print! The example coaster takes `1h44m` to print and r
 
 ## Limitations
 
-While overcoming some of Hueforge's limitations, this method has some of its own:
+While overcoming some of Hueforge's limitations, this method has a couple
+of its own shortcomings:
 
 - Need an SVG first! And a simple one where you can assign the magic `id`s to every
   object. Overlapping shapes in the SVG can also be a problem.
@@ -174,7 +178,7 @@ While overcoming some of Hueforge's limitations, this method has some of its own
 
 ## Conclusion
 
-This was fun experiment that resulted in some nice prints. It's definitely not a
+This was a fun experiment that resulted in some nice prints. It's definitely not a
 replacement for Hueforge though, but in some cases (for simple images) it can
 enable things Hueforge can't.
 
