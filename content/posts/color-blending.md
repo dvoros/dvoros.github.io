@@ -1,7 +1,12 @@
 ---
 title: "Breaking the rules of Hueforge"
 date: 2025-02-06T17:29:10+01:00
-draft: true
+tags:
+- 3d-printing
+- hueforge
+categories:
+- notes
+draft: false
 ---
 
 About a year ago I've come across [Hueforge](https://thehueforge.com), which is a
