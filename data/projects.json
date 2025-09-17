@@ -9,6 +9,11 @@
             "name": "Colored Skyscrapers",
             "url": "https://skyscrapers.dvoros.com/",
             "desc": "DIY logic puzzle game"
+        },
+        {
+            "name": "Sudoku Battle",
+            "url": "https://sudoku.asdasd.hu/",
+            "desc": "Online Sudoku game"
         }
     ]
 }
